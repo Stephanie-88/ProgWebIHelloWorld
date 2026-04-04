@@ -1,14 +1,24 @@
+<<<<<<< HEAD
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller('api/v1')
 export class AppController {
   constructor(private readonly appService: AppService) { }
+=======
+import { Controller, Get } from '@nestjs/common';
+import { AppService } from './app.service';
+
+@Controller()
+export class AppController {
+  constructor(private readonly appService: AppService) {}
+>>>>>>> origin/main
 
   @Get()
   getHello(): string {
     return this.appService.getHello();
   }
+<<<<<<< HEAD
   @Get('vamos/:nome')
   getHello2(@Param('nome') name: string): string {
     return 'vamos la bicha ' + name;
@@ -28,4 +38,6 @@ export class AppController {
       { name: 'pedro', age: 30 }
     ];
   }
+=======
+>>>>>>> origin/main
 }
