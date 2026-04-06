@@ -1,43 +1,39 @@
-<<<<<<< HEAD
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ApiQuery, ApiParam } from '@nestjs/swagger';
+import { ClienteDTO } from './models/cliente.dto';
 
 @Controller('api/v1')
 export class AppController {
   constructor(private readonly appService: AppService) { }
-=======
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
-
-@Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
->>>>>>> origin/main
 
   @Get()
   getHello(): string {
     return this.appService.getHello();
   }
-<<<<<<< HEAD
+
   @Get('vamos/:nome')
+  @ApiParam({ name: 'nome', type: String, description: 'Nome do indivíduo' })
   getHello2(@Param('nome') name: string): string {
-    return 'vamos la bicha ' + name;
+    return this.appService.getHello2(name);
   }
+
   @Get('chegamos')
-  getHello3(@Query() query: any): string {
-    return 'Vamos la! ' + query.nome + ' sua idade é ' + query.idade;
+  @ApiQuery({ name: 'name', type: String, description: 'Nome do individuo' })
+  @ApiQuery({ name: 'age', type: Number, description: 'Idade do individuo' })
+  getHello3(@Query() query: ClienteDTO): string {
+    return this.appService.getHello3(query);
   }
   //http://localhost:3000/chegamos?nome=renato&idade=36
 
   //no java: public String[] listarClientes() { return new String[]{"joao", "maria", "pedro"}; }
   @Get('clientes/listar')
-  listarClientes(): { name: string, age: number }[] {
-    return [
-      { name: 'joao', age: 20 },
-      { name: 'maria', age: 25 },
-      { name: 'pedro', age: 30 }
-    ];
+  listarClientes(): ClienteDTO[] {
+    return this.appService.listarClientes();
   }
-=======
->>>>>>> origin/main
+
+  @Post('clientes/adicionar')
+  adicionarCliente(@Body() cliente: ClienteDTO): { mensagem: string, cliente: ClienteDTO } {
+    return this.appService.adicionarCliente(cliente);
+  }
 }
